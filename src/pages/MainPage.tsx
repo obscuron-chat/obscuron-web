@@ -9,6 +9,7 @@ import Settings from "../components/Settings";
 import AddContact from "../components/AddContact";
 import PeerProfile from "../components/PeerProfile";
 import { ChatListBox } from "../components/ChatTemplates";
+import DomainNoticePopup from "../components/DomainNoticePopup";
 
 import type { Person, PeerChat } from "../types";
 
@@ -213,6 +214,7 @@ const MainPage = () => {
         
     return (
         <div className="flex w-screen h-screen">
+            <DomainNoticePopup />
             <GradientBackground />
             <LeftScreen toggleScreen={toggleScreen} screenWidth={chatListWidth} chatOperator={chatOperator} chatList={chatList} />
             <div className="w-0.5 cursor-col-resize z-10" onMouseDown={startResizing} onTouchStart={startResizing}></div>
