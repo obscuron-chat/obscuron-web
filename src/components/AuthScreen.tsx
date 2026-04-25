@@ -2,7 +2,8 @@ import React, { useState, useEffect } from 'react';
 
 import type { screenTypes, Person } from '../types';
 
-import { ec as EC } from 'elliptic';
+import { secp256k1 } from '@noble/curves/secp256k1.js';
+import { hexToBytes, bytesToHex } from '@noble/curves/utils.js';
 import { sha3_256 } from 'js-sha3';
 
 interface AuthScreenProps {
@@ -46,10 +47,9 @@ const AuthScreen: React.FC<AuthScreenProps> = ({ hidden, toggleScreen, chatOpera
     useEffect(() => {
         const hashHex = sha3_256(password);
         const privateKey = hashHex;
-        const ec = new EC('secp256k1');
-        const keyPair = ec.keyFromPrivate(privateKey);
-        chatOperator.setAuthPubkey(keyPair.getPublic('hex'));
-        chatOperator.setAuthPrivateKey(keyPair.getPrivate('hex'));
+        const pubKeyHex = bytesToHex(secp256k1.getPublicKey(hexToBytes(privateKey), false));
+        chatOperator.setAuthPubkey(pubKeyHex);
+        chatOperator.setAuthPrivateKey(privateKey);
     }, [password]);
 
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {

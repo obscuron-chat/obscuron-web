@@ -4,7 +4,8 @@ import { TextList } from "./ChatTemplates";
 
 import type { Person, screenTypes } from '../types';
 
-import { ec as EC } from 'elliptic';
+import { secp256k1 } from '@noble/curves/secp256k1.js';
+import { hexToBytes, bytesToHex } from '@noble/curves/utils.js';
 import { sha3_256 } from 'js-sha3';
 
 interface ChatOperator {
@@ -63,8 +64,7 @@ const ChatScreen: React.FC<ChatScreenProps> = ({ hidden, toggleScreen, screenWid
         toggleScreen("peerprofile", false);
     };
 
-    const ec = new EC('secp256k1');
-    const keyPair = ec.keyFromPrivate(chatOperator.authPrivateKey);
+    const privKey = chatOperator.authPrivateKey;
 
     const textareaRef = useRef<HTMLTextAreaElement>(null);
     const minHeight = 48;
@@ -117,7 +117,7 @@ const ChatScreen: React.FC<ChatScreenProps> = ({ hidden, toggleScreen, screenWid
                         "receiver": chatOperator.currentChat,
                         "message": encodeHTML(text.join('\n')),
                         "hash": messageHash,
-                        "signature": keyPair.sign(messageHash).toDER('hex'),
+                        "signature": bytesToHex(secp256k1.sign(hexToBytes(messageHash), hexToBytes(privKey), { prehash: false, format: 'der', lowS: false })),
                         "timestamp": new Date().toISOString()
                     };
                     peerChat.textData.push(newChat);
@@ -153,12 +153,12 @@ const ChatScreen: React.FC<ChatScreenProps> = ({ hidden, toggleScreen, screenWid
                 let newChat = JSON.parse(event.data)["message"];
                 console.log(`sha3_256(newChat["message"]) == newChat["hash"]:`, sha3_256(newChat["message"]) == newChat["hash"]);
                 console.log(`updatedChatOperator.contacts.filter((x: Person) => {return x.username == newChat["sender"]})[0].publicKey:`, updatedChatOperator.contacts.filter((x: Person) => {return x.username == newChat["sender"]})[0].publicKey);
-                console.log(`ec.keyFromPublic(updatedChatOperator.contacts.filter((x: Person) => {return x.username == newChat["sender"]})[0].publicKey, 'hex').verify(newChat["hash"], newChat["signature"]):`, ec.keyFromPublic(updatedChatOperator.contacts.filter((x: Person) => {return x.username == newChat["sender"]})[0].publicKey, 'hex').verify(newChat["hash"], newChat["signature"]));
+                const senderPubKey = updatedChatOperator.contacts.filter((x: Person) => {return x.username == newChat["sender"]})[0].publicKey;
+                const sigVerified = secp256k1.verify(hexToBytes(newChat["signature"]), hexToBytes(newChat["hash"]), hexToBytes(senderPubKey), { prehash: false, format: 'der', lowS: false });
+                console.log(`secp256k1.verify(signature, hash, pubKey):`, sigVerified);
                 newChat["verified"] = (
                     sha3_256(newChat["message"]) == newChat["hash"]
-                ) && (
-                    ec.keyFromPublic(updatedChatOperator.contacts.filter((x: Person) => {return x.username == newChat["sender"]})[0].publicKey, 'hex').verify(newChat["hash"], newChat["signature"])
-                );
+                ) && sigVerified;
                 console.log(`newChat["verified"]:`, newChat["verified"]);
                 peerChat.textData.push(newChat);
                 chatData.unshift(peerChat);
