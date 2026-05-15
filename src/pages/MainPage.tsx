@@ -20,7 +20,7 @@ const MainPage = () => {
     const [jwtToken, setjwtToken] = useState<string>('');
 
     const [profileName, setProfileName] = useState<string>('');
-    const [profileImage, setProfileImage] = useState<string>("https://cdn.obscuron.chat/placeholder.png");
+    const [profileImage, setProfileImage] = useState<string>("https://obscuron-cdn.faizath.com/placeholder.png");
     const [currentChat, setCurrentChat] = useState<string>('');
     const [chatData, setChatData] = useState<string>('[]');
 
@@ -29,7 +29,7 @@ const MainPage = () => {
     const [contacts, setContacts] = useState<Person[]>([{
         username: "faiz",
         publicKey: "048516b9513070d51ee673870eee16b6e8bb9d5e79ec9ea1e6a2b8729ef99cfdb901b59132d9ed21c7416636cdac55345a6a6b70e720c00ca5416ee0834ae2e843",
-        imageURL: "https://cdn.obscuron.chat/placeholder.png",
+        imageURL: "https://obscuron-cdn.faizath.com/placeholder.png",
         profileName: "Faiz"
     }]);
 

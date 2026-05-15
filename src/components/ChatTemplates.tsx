@@ -80,7 +80,7 @@ const ChatListBox: React.FC<ChatListProps> = ({ chatOperator, username, toggleSc
             toggleScreen('blank', true);
         }} >
             <div>
-                <img className="h-12 w-12 min-w-12 rounded-full" src={chatOperator.currentChat ? chatOperator.contacts.filter((x: Person) => {return x.username == username})[0].imageURL : "https://cdn.obscuron.chat/placeholder.png"}/>
+                <img className="h-12 w-12 min-w-12 rounded-full" src={chatOperator.currentChat ? chatOperator.contacts.filter((x: Person) => {return x.username == username})[0].imageURL : "https://obscuron-cdn.faizath.com/placeholder.png"}/>
             </div>
             <div className="ml-4 flex-1 border-b border-gray-100 py-4">
                 <div className="flex items-end justify-between">

@@ -227,7 +227,7 @@ const ChatScreen: React.FC<ChatScreenProps> = ({ hidden, toggleScreen, screenWid
                             </span>
                             <img
                                 id="peerImgURL"
-                                src={chatOperator.currentChat ? chatOperator.contacts.filter((x) => {return x.username == chatOperator.currentChat})[0].imageURL : "https://cdn.obscuron.chat/placeholder.png"}
+                                src={chatOperator.currentChat ? chatOperator.contacts.filter((x) => {return x.username == chatOperator.currentChat})[0].imageURL : "https://obscuron-cdn.faizath.com/placeholder.png"}
                                 alt=""
                                 className="w-10 h-10 min-w-10 rounded-full"
                             />

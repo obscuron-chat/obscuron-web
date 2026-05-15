@@ -42,7 +42,7 @@ const PeerProfile: React.FC<PeerProfileProps> = ({ hidden, toggleScreen, chatOpe
                                     <div className="flex flex-1 max-w-fit center bg-grey-light rounded-2xl">
                                         <div className="items-center flex">
                                             <div className="relative h-24 w-24">
-                                                <img id="peerProfileImgURL" src={chatOperator.currentChat ? chatOperator.contacts.filter((x) => {return x.username == chatOperator.currentChat})[0].imageURL : "https://cdn.obscuron.chat/placeholder.png"} alt={chatOperator.currentChat ? chatOperator.contacts.filter((x) => {return x.username == chatOperator.currentChat})[0].profileName : ""} className="w-24 h-24 min-w-24 rounded-full" />
+                                                <img id="peerProfileImgURL" src={chatOperator.currentChat ? chatOperator.contacts.filter((x) => {return x.username == chatOperator.currentChat})[0].imageURL : "https://obscuron-cdn.faizath.com/placeholder.png"} alt={chatOperator.currentChat ? chatOperator.contacts.filter((x) => {return x.username == chatOperator.currentChat})[0].profileName : ""} className="w-24 h-24 min-w-24 rounded-full" />
                                             </div>
                                         </div>
                                         <div className="ml-4 flex-1 py-4 flex flex-col justify-center">

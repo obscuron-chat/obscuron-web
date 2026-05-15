@@ -96,7 +96,7 @@ const Settings: React.FC<SettingsProps> = ({ hidden, toggleScreen, chatOperator 
                                                         className="sr-only"
                                                         tabIndex={2}
                                                     />
-                                                    <img data-newimg="" src={image ? URL.createObjectURL(image) : "https://cdn.obscuron.chat/placeholder.png"} alt="" className="w-24 h-24 min-w-24 rounded-full" />
+                                                    <img data-newimg="" src={image ? URL.createObjectURL(image) : "https://obscuron-cdn.faizath.com/placeholder.png"} alt="" className="w-24 h-24 min-w-24 rounded-full" />
                                                 </div>
                                             </div>
                                             <div className="ml-4 flex-1 py-6 flex flex-col">

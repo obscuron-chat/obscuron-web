@@ -155,7 +155,7 @@ const AddContact: React.FC<AddContactProps> = ({ hidden, toggleScreen, chatOpera
                                         <img
                                             id="searchContactResultsImg"
                                             className="h-12 w-12 min-w-12 rounded-full"
-                                            src={selectedPerson?.imageURL ? selectedPerson?.imageURL : "https://cdn.obscuron.chat/placeholder.png" }
+                                            src={selectedPerson?.imageURL ? selectedPerson?.imageURL : "https://obscuron-cdn.faizath.com/placeholder.png" }
                                             alt=""
                                         />
                                     </div>
